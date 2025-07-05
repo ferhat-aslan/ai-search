@@ -497,28 +497,99 @@ export function DataTable({
   const compare = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("http://127.0.0.1:8000/compare", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          keywords: data.map((item) => item.header),
-          competitors: competitors.map((item) => item.header),
-        }),
+
+      setCompareData({
+        results: [
+          {
+            keyword: "Electrical Car",
+            positions: {
+              Xiaomi: null,
+              Tesla: null,
+              BMW: null,
+              Honda: null,
+              Peugeot: null,
+              "Mercedes-Benz": null,
+            },
+          },
+          {
+            keyword: "DC Charger EV Cars",
+            positions: {
+              Xiaomi: null,
+              Tesla: null,
+              BMW: null,
+              Honda: null,
+              Peugeot: null,
+              "Mercedes-Benz": null,
+            },
+          },
+          {
+            keyword: "Small Electric Cars",
+            positions: {
+              Xiaomi: null,
+              Tesla: null,
+              BMW: null,
+              Honda: null,
+              Peugeot: null,
+              "Mercedes-Benz": null,
+            },
+          },
+          {
+            keyword: "Luxury Electric Cars",
+            positions: {
+              Xiaomi: null,
+              Tesla: 11,
+              BMW: 1,
+              Honda: null,
+              Peugeot: null,
+              "Mercedes-Benz": 2,
+            },
+          },
+          {
+            keyword: "Long Range Electric Vehicles",
+            positions: {
+              Xiaomi: null,
+              Tesla: 2,
+              BMW: 13,
+              Honda: null,
+              Peugeot: null,
+              "Mercedes-Benz": 6,
+            },
+          },
+          {
+            keyword: "Under 40k Electric Cars",
+            positions: {
+              Xiaomi: null,
+              Tesla: 4,
+              BMW: null,
+              Honda: null,
+              Peugeot: null,
+              "Mercedes-Benz": null,
+            },
+          },
+          {
+            keyword: "SUV Electric Cars",
+            positions: {
+              Xiaomi: null,
+              Tesla: null,
+              BMW: null,
+              Honda: 3,
+              Peugeot: null,
+              "Mercedes-Benz": null,
+            },
+          },
+          {
+            keyword: "Fast Electric Cars",
+            positions: {
+              Xiaomi: null,
+              Tesla: 13,
+              BMW: null,
+              Honda: null,
+              Peugeot: null,
+              "Mercedes-Benz": null,
+            },
+          },
+        ],
       });
-      if (!response.ok) {
-        console.error("Failed to compare");
-        return;
-      }
-      const result = await response.json();
-      console.log("Comparison result:", result);
-      let resultdata = result;
-      if (result.results) {
-        // Check if results exist
-        resultdata = result.results; // Use results directly
-      }
-      setCompareData(resultdata);
       setIsLoading(false);
       setOpenDialog(true);
     } catch (e) {
@@ -564,10 +635,6 @@ export function DataTable({
       <Tabs
         defaultValue="outline"
         className="w-full flex-col justify-start gap-6"
-        onChange={(e) => {
-          console.log("Tab changed to:", e);
-          setData(initialData);
-        }}
       >
         <div className="flex items-center justify-between px-4 lg:px-6">
           <Label htmlFor="view-selector" className="sr-only">
@@ -931,7 +998,7 @@ export function DataTable({
       </Tabs>
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent className="!max-w-fit">
-          <DialogTitle>Edit Item</DialogTitle>
+          <DialogTitle>Comparing Brands</DialogTitle>
           <DialogDescription>
             <Table>
               <TableHeader>

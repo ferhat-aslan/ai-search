@@ -1,4 +1,5 @@
 from asyncio import sleep
+import asyncio
 import time
 from fastapi import FastAPI
 import openai
@@ -13,7 +14,7 @@ load_dotenv()
 # Initialize OpenAI client with the API key from environment variables
 client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 app = FastAPI()
-BRAVE_API_KEY = "BSA4-AH_6z1Y9r9Q9q7cguWo68GNDNL"   # or paste your key here for testing
+BRAVE_API_KEY = "BSA4-s"   # or paste your key here for testing
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Allows all origins, you can restrict this to specific domains
@@ -48,13 +49,14 @@ def brave_search(query):
     resp.raise_for_status()
     return resp.json().get("web", []).get("results", [])
 
-def compare_sites_on_keywords(keywords, competitors):
+async def compare_sites_on_keywords(keywords, competitors):
     comparisons = []
 
     for kw in keywords:
         serp = brave_search(kw)
-        sleep(30000) # To avoid hitting rate limits, you can adjust this as needed
-    
+        time.sleep(4.5)
+        await asyncio.sleep(3)  # To avoid hitting rate limits, you can adjust this as needed
+
         positions = {}
         for comp in competitors:
             # Look for first occurrence where the name appears in the title or description
@@ -69,11 +71,11 @@ def compare_sites_on_keywords(keywords, competitors):
                     break
             positions[comp] = found  # None if not found
         comparisons.append({"keyword": kw, "positions": positions})
-        time.sleep(1.5)
+        
     return comparisons
 @app.post("/compare")
-def compare(request: CompetitorRequest):
-    raw = compare_sites_on_keywords(request.keywords, request.competitors)
+async def compare(request: CompetitorRequest):
+    raw = await compare_sites_on_keywords(request.keywords, request.competitors)
     # Just a quick basic summary (not using OpenAI here, but you could add it)
     summary = {
         "total_keywords": len(request.keywords),

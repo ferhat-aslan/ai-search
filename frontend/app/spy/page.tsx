@@ -26,7 +26,6 @@ export default function Page() {
             <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6 rounded-2xl bg-white shadow-lg w-full border border-gray-200 p-4 md:p-6">
               <span>Firecrawler, Openai Agents Web Search Preview</span>
               <Input className="w-full" placeholder="Search..." />
-              <DataTable data={data} />
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ import {SectionCards} from "@/components/section-cards";
 import {SiteHeader} from "@/components/site-header";
 import {SidebarInset, SidebarProvider} from "@/components/ui/sidebar";
 
-import {keywords as data} from "@/app/data";
+import {keywords} from "@/app/data";
 
 export default function Page() {
   return (
@@ -22,7 +22,7 @@ export default function Page() {
         <SiteHeader />
         <div className="flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2 justify-center items-center">
-            <ul className="flex flex-col gap-2 p-4 md:p-6 rounded-md shadow bg-white w-full max-w-2xl">
+            <ul className="flex flex-col p-4 md:p-6 rounded-md shadow bg-white w-full max-w-2xl gap-5">
               <li className="text-sm text-gray-600">
                 📄 Structured Data (Schema Markup)
               </li>

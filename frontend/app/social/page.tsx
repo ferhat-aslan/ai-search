@@ -28,7 +28,7 @@ export default function Page() {
                   <span className="flex flex-row justify-start items-center gap-2">
                     <h1 className="text-lg font-semibold">site:Tiktok</h1>
                   </span>
-                  <span>Most Popular Competitor: Rivian</span>
+                  <span>Most Popular Competitor: Tesla</span>
                   <span>Most Popular Keywords: American EV Car Startup</span>
                 </span>
                 <span className="bg-sidebar rounded-2xl p-4 flex flex-col justify-start items-start gap-2 ">
